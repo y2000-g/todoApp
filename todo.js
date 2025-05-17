@@ -1,6 +1,7 @@
 console.log("HEllo")
 
 var todoListArray = []
+var count = 0
 
 function addTodo()
 {
@@ -22,15 +23,35 @@ function addTodo()
     else
     {
         console.log(todoListArray)
-        todoListArray.push(todoInput.value)
+        todoListArray.push({
+            id: count++,
+            todo: todoInput.value,
+            completed: false
+        })
         console.log(todoListArray)
     }
     todolist.innerHTML = ""
     for(index =0; index<todoListArray.length; index++)
     {
         console.log(index)
-        todolist.innerHTML += "<li>"+todoListArray[index]+"</li>"
+        // todolist.innerHTML += "<li>"+todoListArray[index]+"</li>"
+        todolist.innerHTML += "<li> <input type='checkbox'/> <label>"+todoListArray[index].todo+"</label> <button>Edit</button> <button>Delete</button> </li>"
         console.log(todolist.innerHTML)
     }
    
+}
+function delTodo()
+{
+    console.log("Delete called")
+    todoListArray.pop()
+    // console.log(todolist.innerHTML)
+    todolist.innerHTML = ""
+    for(index =0; index < todoListArray.length; index++)
+    {
+        console.log(index)
+        // todolist.innerHTML += "<li>"+todoListArray[index]+"</li>"
+        todolist.innerHTML += "<li id="+todoListArray[index].id+"> <input type='checkbox'/> <label>"+todoListArray[index].todo+"</label> <button>Edit</button> <button>Delete</button> </li>"
+        console.log(todolist.innerHTML)
+    }
+    
 }
