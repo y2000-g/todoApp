@@ -1,5 +1,6 @@
 <html>
     <head>
+        <script src="jquery-3.7.1.js"></script>
     <script src="todo.js"></script>
     </head>
     <body>
@@ -17,7 +18,7 @@
                 <button onclick="delTodo()">Delete</button>
                 <ol id="todolist">
                     <!-- <li>
-                        <input type="checkbox"/>
+                        <input type="checkbox" onclick="onTodoCompleted(this)"/> //this why??
                         <label>Todo 1 </label>
                         <button>Edit</button>
                         <button>Delete</button>
