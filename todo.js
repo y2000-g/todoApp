@@ -1,10 +1,11 @@
 console.log("HEllo")
 
 var todoListArray = []
-$(document).ready(function() // why??
+$(document).ready(function() 
 {
     updateFrontend()
 });
+
 var count = 0
 var todoListArray = 
 [
@@ -39,7 +40,7 @@ function addTodo()
     // todoListArray.push(todoInput.value)
     // console.log(todoListArray)
 
-    if(todoInput.value.trim() == "") // trim is not working for removing string spaces???
+    if(todoInput.value.trim() == "")
     {
         alert("Todo title cannot be blank!!")
     }
@@ -49,7 +50,7 @@ function addTodo()
         // todoListArray.push(todoInput.value)    
         todoListArray.push({
             id: ++count,
-            todo: todoInput.value,
+            todo: todoInput.value.trim(),
             completed: false
         })
         console.log(todoListArray)
@@ -83,6 +84,10 @@ function delTodo()
     // }
     updateFrontend()
 }
+const NOT_EDITING = -1
+
+var editingTodoFlag = NOT_EDITING 
+
 function updateFrontend()
  {
       let todolist = document.getElementById("todolist")
@@ -95,13 +100,51 @@ function updateFrontend()
         
         if(todoListArray[index].completed)
 
-            todolist.innerHTML += "<li id="+todoListArray[index].id+"><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")' checked/><s><label>"+todoListArray[index].todo+"</label></s><button>Edit</button><button>Delete</button></li>"
+            todolist.innerHTML += "<li id="+todoListArray[index].id+"><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")' checked/><s><label>"+todoListArray[index].todo+"</label></s><button onclick='onEditTodo("+todoListArray[index].id+")'>Edit</button><button onclick='onDeleted("+todoListArray[index].id+")'>Delete</button></li>"
+        else if(editingTodoFlag == todoListArray[index].id)
+        {
+           todolist.innerHTML += "<li id="+todoListArray[index].id+"><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")'/><input id='editingtodo' value ="+todoListArray[index].todo+"></input><button onclick='onsaveTodo("+todoListArray[index].id+")'>Save</button><button onclick='onDeleted("+todoListArray[index].id+")'>Delete</button></li>" 
+        }   
         else
 
-            todolist.innerHTML += "<li id="+todoListArray[index].id+"><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")'/><label>"+todoListArray[index].todo+"</label><button>Edit</button><button>Delete</button></li>"
+            todolist.innerHTML += "<li id="+todoListArray[index].id+"><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")'/><label>"+todoListArray[index].todo+"</label><button onclick='onEditTodo("+todoListArray[index].id+")'>Edit</button><button onclick='onDeleted("+todoListArray[index].id+")'>Delete</button></li>"
     }
    
 }  
+
+function onDeleted(todoID)
+{
+    console.log("Deleted Id", todoID)
+    todoListArray = todoListArray.filter(todoObj =>
+    {
+        return !(todoObj.id == todoID)
+    })
+    updateFrontend()
+}
+
+function onEditTodo(todoID)
+{
+    console.log("Editing id ", todoID)
+    editingTodoFlag = todoID
+    updateFrontend()
+}
+
+function onsaveTodo(todoID)
+{
+    console.log("Save Todo", todoID) 
+    let UpdatedTodotext = document.getElementById("editingtodo").value
+    console.log(UpdatedTodotext)
+    todoListArray = todoListArray.map(todoObj=>
+    {
+        if(todoID == todoObj.id)
+        {
+            todoObj.todo = UpdatedTodotext 
+        }
+        return todoObj
+    })
+    editingTodoFlag = NOT_EDITING
+    updateFrontend()
+}
 
 function onTodoComplete(checkbox, todoID)
 {
