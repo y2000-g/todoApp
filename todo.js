@@ -90,8 +90,9 @@ var editingTodoFlag = NOT_EDITING
 
 function updateFrontend()
  {
-      let todolist = document.getElementById("todolist")
-      todolist.innerHTML = ""
+      
+    let todolist = document.getElementById("todolist")
+    todolist.innerHTML = ""
     for(index =0; index<todoListArray.length; index++)
     {
         // todolist.innerHTML += "<li>"+todoListArray[index]+"</li>"
@@ -107,7 +108,7 @@ function updateFrontend()
         }   
         else
 
-            todolist.innerHTML += "<li id="+todoListArray[index].id+"><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")'/><label>"+todoListArray[index].todo+"</label><button onclick='onEditTodo("+todoListArray[index].id+")'>Edit</button><button onclick='onDeleted("+todoListArray[index].id+")'>Delete</button></li>"
+           todolist.innerHTML += "<li id="+todoListArray[index].id+"><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")'/><label>"+todoListArray[index].todo+"</label><button onclick='onEditTodo("+todoListArray[index].id+")'>Edit</button><button onclick='onDeleted("+todoListArray[index].id+")'>Delete</button></li>"
     }
    
 }  
