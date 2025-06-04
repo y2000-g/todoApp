@@ -1,34 +1,55 @@
+
 console.log("HEllo")
 
 var todoListArray = []
+
 $(document).ready(function() 
 {
+    $("#showtodo").click(function()
+{
     updateFrontend()
+});   
+});
+
+ $(document).ready(function()
+{
+  $("#showtodo").click(function()
+  {
+        $("p:first").hide();
+  });
+});
+
+ $(document).ready(function()
+{
+  $("#showtodo").click(function()
+  {
+        $("button:first").hide();
+  });
 });
 
 var count = 0
 var todoListArray = 
 [
-     {
-        id: ++count,
-        todo: "Todo 1",
-        completed: false
-    }, 
-     {
-        id: ++count,
-        todo: "Todo 2",
-        completed: false
-    }, 
-     {
-        id: ++count,
-        todo: "Todo 3",
-        completed: false
-    }, 
-     {
-        id: ++count,
-        todo: "Todo 4",
-        completed: true
-    }, 
+    //  {
+    //     id: ++count,
+    //     todo: "Todo 1",
+    //     completed: false
+    // }, 
+    //  {
+    //     id: ++count,
+    //     todo: "Todo 2",
+    //     completed: false
+    // }, 
+    //  {
+    //     id: ++count,
+    //     todo: "Todo 3",
+    //     completed: false
+    // }, 
+    //  {
+    //     id: ++count,
+    //     todo: "Todo 4",
+    //     completed: true
+    // }, 
 ]
 function addTodo()
 {
@@ -93,7 +114,7 @@ function updateFrontend()
       
     let todolist = document.getElementById("todolist")
     todolist.innerHTML = ""
-    for(index =0; index<todoListArray.length; index++)
+    for(index =0; index < todoListArray.length; index++)
     {
         // todolist.innerHTML += "<li>"+todoListArray[index]+"</li>"
 
@@ -101,17 +122,19 @@ function updateFrontend()
         
         if(todoListArray[index].completed)
 
-            todolist.innerHTML += "<li id="+todoListArray[index].id+"><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")' checked/><s><label>"+todoListArray[index].todo+"</label></s><button onclick='onEditTodo("+todoListArray[index].id+")'>Edit</button><button onclick='onDeleted("+todoListArray[index].id+")'>Delete</button></li>"
-        else if(editingTodoFlag == todoListArray[index].id)
-        {
-           todolist.innerHTML += "<li id="+todoListArray[index].id+"><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")'/><input id='editingtodo' value ="+todoListArray[index].todo+"></input><button onclick='onsaveTodo("+todoListArray[index].id+")'>Save</button><button onclick='onDeleted("+todoListArray[index].id+")'>Delete</button></li>" 
-        }   
+           todolist.innerHTML += "<li id="+todoListArray[index].id+" id='listStyle'><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")' checked/><s><label>"+todoListArray[index].todo+"</label></s><img src='edit.png' data-bs-toggle='modal' data-bs-target='#updateTodoModal' alt='Edit button'width='20' height='20' onclick='onEditTodo("+todoListArray[index].id+")'><img src='delete.png' alt='delete button'width='20' height='20' onclick='onDeleted("+todoListArray[index].id+")'></li>"
+            
+        // else if(editingTodoFlag == todoListArray[index].id)
+        // {
+        //    todolist.innerHTML += "<li id="+todoListArray[index].id+" id='listStyle'><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")'/><input id='editingtodo' value ="+todoListArray[index].todo+"></input><button onclick='onsaveTodo("+todoListArray[index].id+")'>Save</button><img src='delete.png' alt='delete button'width='20' height='20' onclick='onDeleted("+todoListArray[index].id+")'></li>" 
+        // }   
         else
 
-           todolist.innerHTML += "<li id="+todoListArray[index].id+"><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")'/><label>"+todoListArray[index].todo+"</label><button onclick='onEditTodo("+todoListArray[index].id+")'>Edit</button><button onclick='onDeleted("+todoListArray[index].id+")'>Delete</button></li>"
+           todolist.innerHTML += "<li id="+todoListArray[index].id+" id='listStyle'><input type='checkbox'  onclick='onTodoComplete(this, "+todoListArray[index].id+")'/><label>"+todoListArray[index].todo+"</label><img src='edit.png' alt='Edit button' width='20' height='20' data-bs-toggle='modal' data-bs-target='#updateTodoModal' onclick='onEditTodo("+todoListArray[index].id+")'><img src='delete.png' alt='delete button'width='20' height='20' data-bs-toggle='modal' data-bs-target='#DeleteTodoModal' onclick='onDeleted("+todoListArray[index].id+")'></li>"
     }
    
 }  
+
 
 function onDeleted(todoID)
 {
@@ -123,11 +146,19 @@ function onDeleted(todoID)
     updateFrontend()
 }
 
+function onDeleted()
+{
+    todoListArray = todoListArray.filter(todoObj =>
+    {
+        return !(todoObj.id == todoID)
+    })
+    updateFrontend()
+}
+
 function onEditTodo(todoID)
 {
     console.log("Editing id ", todoID)
     editingTodoFlag = todoID
-    updateFrontend()
 }
 
 function onsaveTodo(todoID)
@@ -138,6 +169,22 @@ function onsaveTodo(todoID)
     todoListArray = todoListArray.map(todoObj=>
     {
         if(todoID == todoObj.id)
+        {
+            todoObj.todo = UpdatedTodotext 
+        }
+        return todoObj
+    })
+    editingTodoFlag = NOT_EDITING
+    updateFrontend()
+}
+
+function onsaveTodo()
+{
+    let UpdatedTodotext = document.getElementById("todoUpdateInput").value
+    console.log(UpdatedTodotext)
+    todoListArray = todoListArray.map(todoObj=>
+    {
+        if(editingTodoFlag == todoObj.id)
         {
             todoObj.todo = UpdatedTodotext 
         }
