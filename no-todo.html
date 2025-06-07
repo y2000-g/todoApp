@@ -7,13 +7,28 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="todo.css"> 
         <h1 style="text-align: center;">To-do App</h1>
+    </br>
     </head>
     <body id="gradient">
+        <label style="display: none;" id="totalTodo">Total To-dos : </label>
+        <div class="filter" id="filterDisplay">
+            <label onclick="filterTodo('INCOMPLETED')">
+                Incomplete
+            </label>
+            |
+            <label onclick="filterTodo('COMPLETED')">
+                Complete
+            </label>
+            |
+            <label onclick="filterTodo('ALL')">
+                All
+            </label>
+        </div>
         <ol id="todolist">
         </ol>
-        <div class="center">
+        <div class="center" id="emptyMessage">
         <p> No to-dos addeed yet</p>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add to-do +</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTodoModal">Add to-do +</button>
         </div>
         <!-- Button trigger modal -->
         <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -21,7 +36,7 @@
         </button> -->
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addTodoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
@@ -52,7 +67,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" id="showtodo" class="btn btn-primary" data-bs-dismiss="modal"  onclick="onsaveTodo()" >Update Todo</button>
+            <button type="button" id="todoSave" class="btn btn-primary" data-bs-dismiss="modal" onclick="onsaveTodo()" >Update Todo</button>
         </div>
         </div>
         </div>
@@ -71,10 +86,16 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"  onclick="onDeleted()" >Delete</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"  onclick="confirmDelete()" >Delete</button>
         </div>
         </div>
         </div>
+        </div>
+
+        
+        <!-- This is shown when there is at least one todo -->
+         <div class="addMoreTodo" id="moreTodoAdding" style="display: none;">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTodoModal">Add to-do +</button>
         </div>
 
     </body>
