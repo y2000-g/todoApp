@@ -10,17 +10,17 @@
     </br>
     </head>
     <body id="gradient">
-        <label style="display: none;" id="totalTodo">Total To-dos : </label>
+        <label style="display: none;" id="totalTodo"></label>
         <div class="filter" id="filterDisplay">
-            <label onclick="filterTodo('INCOMPLETED')">
+            <label class="Incomplete" onclick="filterTodo('INCOMPLETED')">
                 Incomplete
             </label>
             |
-            <label onclick="filterTodo('COMPLETED')">
+            <label class="Complete" onclick="filterTodo('COMPLETED')">
                 Complete
             </label>
             |
-            <label onclick="filterTodo('ALL')">
+            <label class="All" onclick="filterTodo('ALL')">
                 All
             </label>
         </div>
@@ -30,10 +30,6 @@
         <p> No to-dos addeed yet</p>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTodoModal">Add to-do +</button>
         </div>
-        <!-- Button trigger modal -->
-        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo modal
-        </button> -->
 
         <!-- Modal -->
         <div class="modal fade" id="addTodoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -63,7 +59,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
         </div>
         <div class="modal-body">
-                <input type="text" placeholder="Add updated to do here..." id="todoUpdateInput" required/>
+                <input type="text" id="todoUpdateInput" required/>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

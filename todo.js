@@ -5,7 +5,7 @@ var todoListArray = []
 const ALL = "ALL"
 const INCOMPLETED = "INCOMPLETED"
 const COMPLETED = "COMPLETED"
-var filter = ALL
+var filter = INCOMPLETED
 var count = 0
 // var todoListArray = 
 // [
@@ -33,10 +33,10 @@ var count = 0
 function addTodo()
 {
     console.log("Add to do")
+
     let todoInput = document.getElementById("todoInput")
 
     let todoText = todoInput.value.trim();
-    console.log("Todotext",todoText)
 
     if(todoText === "")
     {
@@ -50,9 +50,8 @@ function addTodo()
             todo: todoText,
             completed: false
         });
-        
+        todoInput.value = " "
     }
-
 
     // todolist.innerHTML = ""
     // for(index =0; index<todoListArray.length; index++)
@@ -65,7 +64,6 @@ function addTodo()
     //     console.log(todolist.innerHTML)
     // }
    updateFrontend()
-   console.log(todoListArray)
 }
 
 function delTodo()
@@ -95,79 +93,71 @@ function updateFrontend()
     let moreTodoAdded = document.getElementById("moreTodoAdding");
     let filterDisplayDiv = document.getElementById("filterDisplay");
     let totalTodolabel = document.getElementById("totalTodo");
-     todolist.innerHTML = "";
+    todolist.innerHTML = "";
 
-    if (todoListArray.length === 0) {
+        if (todoListArray.length === 0) {
 
-        emptyMessageDiv.style.display = "block";
+            emptyMessageDiv.style.display = "block";
 
-        moreTodoAdded.style.display = "none";
+            moreTodoAdded.style.display = "none";
 
-        filterDisplayDiv.style.display = "none";
+            filterDisplayDiv.style.display = "none";
 
-        totalTodolabel.style.display = "none";
+            totalTodolabel.style.display = "none";
 
-    }
-    //  else if (todoListArray.length !== 0) {
-    //     moreTodoAdded.style.display = "block";
-    //     return;
-    // }
-     else{
+        }
+        else{
 
-        emptyMessageDiv.style.display = "none";
+            emptyMessageDiv.style.display = "none";
 
-        moreTodoAdded.style.display = "block";
+            moreTodoAdded.style.display = "block";
 
-        filterDisplayDiv.style.display = "block";
+            filterDisplayDiv.style.display = "block";
 
-        totalTodolabel.style.display = "block";
-    }
-
+            totalTodolabel.style.display = "block";
+        }
+    
     todolist.innerHTML = ""
+    let filteredTodosCount = 0;
+
     todoListArray.map((todoItem) =>
     {
-        console.log("TODOItem:", todoItem.todo)
-        // todolist.innerHTML += "<li>"+todoListArray[index]+"</li>"
-
-        // todolist.innerHTML += "<li id="+todoListArray[index].id+"><input type='checkbox'/> <label>"+todoListArray[index].todo+"</label><button>Edit</button><button>Delete</button></li>"
         if(filter == ALL)
         {
             if(todoItem.completed)
-        {
-            todolist.innerHTML += "<li id="+todoItem.id+" ><input type='checkbox'  onclick='onTodoComplete(this, "+todoItem.id+")' checked/><label id='StrikeThrough'>"+todoItem.todo+"</label><img src='edit.png' data-bs-toggle='modal' data-bs-target='#updateTodoModal' alt='Edit button'width='20' height='20' onclick='onEditTodo("+todoItem.id+")'><img src='delete.png' alt='delete button'width='20' height='20' onclick='onDeleted("+todoItem.id+")'></li>"
-            return ;
-        }
-             
-            // else if(editingTodoFlag == todoItem.id)
-            // {
-            //    todolist.innerHTML += "<li id="+todoItem.id+" id='listStyle'><input type='checkbox'  onclick='onTodoComplete(this, "+todoItem.id+")'/><input id='editingtodo' value ="+todoItem.todo+"></input><button onclick='onsaveTodo("+todoItem.id+")'>Save</button><img src='delete.png' alt='delete button'width='20' height='20' onclick='onDeleted("+todoItem.id+")'></li>" 
-            // }  
-
+            {
+                filteredTodosCount = todoListArray.length;
+                console.log("filtertodocount all", filteredTodosCount)
+                todolist.innerHTML += "<li id="+todoItem.id+" ><input type='checkbox'  onclick='onTodoComplete(this, "+todoItem.id+")' checked/><label id='StrikeThrough'>"+todoItem.todo+"</label><img src='edit.png' data-bs-toggle='modal' data-bs-target='#updateTodoModal' alt='Edit button'width='20' height='20' onclick='onEditTodo("+todoItem.id+")'><img src='delete.png' alt='delete button'width='20' height='20' onclick='onDeleted("+todoItem.id+")'></li>"
+            }
             else 
-        {
-            todolist.innerHTML += "<li id="+todoItem.id+" ><input type='checkbox'  onclick='onTodoComplete(this, "+todoItem.id+")'/><label>"+todoItem.todo+"</label><img src='edit.png' alt='Edit button' width='20' height='20' data-bs-toggle='modal' data-bs-target='#updateTodoModal' onclick='onEditTodo("+todoItem.id+")'><img src='delete.png' alt='delete button'width='20' height='20' data-bs-toggle='modal' data-bs-target='#DeleteTodoModal' onclick='onDeleted("+todoItem.id+")'></li>"
-            console.log( "In all",todoItem)  
-        }
+            {
+                filteredTodosCount = todoListArray.length;
+                todolist.innerHTML += "<li id="+todoItem.id+" ><input type='checkbox'  onclick='onTodoComplete(this, "+todoItem.id+")'/><label>"+todoItem.todo+"</label><img src='edit.png' alt='Edit button' width='20' height='20' data-bs-toggle='modal' data-bs-target='#updateTodoModal' onclick='onEditTodo("+todoItem.id+")'><img src='delete.png' alt='delete button'width='20' height='20' data-bs-toggle='modal' data-bs-target='#DeleteTodoModal' onclick='onDeleted("+todoItem.id+")'></li>"
+                console.log( "In all",todoItem)  
+            }
         }   
-
         else if (filter == INCOMPLETED)
         {
             if(!todoItem.completed)
-            todolist.innerHTML += "<li id="+todoItem.id+" ><input type='checkbox'  onclick='onTodoComplete(this, "+todoItem.id+")'/><label>"+todoItem.todo+"</label><img src='edit.png' alt='Edit button' width='20' height='20' data-bs-toggle='modal' data-bs-target='#updateTodoModal' onclick='onEditTodo("+todoItem.id+")'><img src='delete.png' alt='delete button'width='20' height='20' data-bs-toggle='modal' data-bs-target='#DeleteTodoModal' onclick='onDeleted("+todoItem.id+")'></li>"
-             console.log( "InCOMPLETED ",todoItem)  
-
+            {
+                filteredTodosCount = todoListArray.filter(todo => !todo.completed).length;
+                console.log("filtertodocount", filteredTodosCount)
+                todolist.innerHTML += "<li id="+todoItem.id+" ><input type='checkbox'  onclick='onTodoComplete(this, "+todoItem.id+")'/><label>"+todoItem.todo+"</label><img src='edit.png' alt='Edit button' width='20' height='20' data-bs-toggle='modal' data-bs-target='#updateTodoModal' onclick='onEditTodo("+todoItem.id+")'><img src='delete.png' alt='delete button'width='20' height='20' data-bs-toggle='modal' data-bs-target='#DeleteTodoModal' onclick='onDeleted("+todoItem.id+")'></li>"
+                console.log( "InCOMPLETED ",todoItem)  
+            }
         }   
         else
         {
             if(todoItem.completed)
-            {    
-            todolist.innerHTML += "<li id="+todoItem.id+" ><input type='checkbox'  onclick='onTodoComplete(this, "+todoItem.id+")' checked/><label id='StrikeThrough'>"+todoItem.todo+"</label><img src='edit.png' data-bs-toggle='modal' data-bs-target='#updateTodoModal' alt='Edit button'width='20' height='20' onclick='onEditTodo("+todoItem.id+")'><img src='delete.png' alt='delete button'width='20' height='20' onclick='onDeleted("+todoItem.id+")'></li>"
-            console.log( "COMPLETED",todoItem) 
+            {
+                filteredTodosCount = todoListArray.filter(todo => todo.completed).length;    
+                todolist.innerHTML += "<li id="+todoItem.id+" ><input type='checkbox'  onclick='onTodoComplete(this, "+todoItem.id+")' checked/><label id='StrikeThrough'>"+todoItem.todo+"</label><img src='edit.png' data-bs-toggle='modal' data-bs-target='#updateTodoModal' alt='Edit button'width='20' height='20' onclick='onEditTodo("+todoItem.id+")'><img src='delete.png' alt='delete button'width='20' height='20' onclick='onDeleted("+todoItem.id+")'></li>"
+                console.log( "COMPLETED",todoItem) 
             }
-            return; 
         } 
+                document.getElementById("totalTodo").innerHTML = "TOTAL TO-DO :"+ filteredTodosCount;
     })
-        
 }  
 
 
@@ -224,7 +214,6 @@ function onEditTodo(todoID)
 function onsaveTodo()
 {
     let UpdatedTodotext = document.getElementById("todoUpdateInput").value
-    console.log(UpdatedTodotext)
     todoListArray = todoListArray.map(todoObj=>
     {
         if(editingTodoFlag == todoObj.id)
@@ -256,24 +245,32 @@ function onTodoComplete(checkbox, todoID)
         }
         return todoObj
     })
-    console.log(todoListArray)
     updateFrontend()
 }
 
 function filterTodo(action)
 {
     filter = action
-
+    
     updateFrontend()
+
+    // if (filter === ALL) {
+    //     document.getElementById("All").style.fontWeight = "bold"
+    // } else if (filter === COMPLETED) {
+    //     document.getElementById("COMPLETED").style.fontWeight = "bold"
+    // } else if (filter === INCOMPLETED) {
+    //     document.getElementById("INCOMPLETED").style.fontWeight = "bold"
+    // }
+   
     // switch(action)
     // {
-    //     case "Incomplete":
+    //     case "INCOMPLETED":
     //         break;
 
-    //     case "Complete":
+    //     case "COMPLETED":
     //         break;
         
-    //    case "All":
+    //    case "ALL":
     //        break;     
     // }
 }
