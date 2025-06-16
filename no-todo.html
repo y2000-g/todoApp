@@ -10,21 +10,24 @@
     </br>
     </head>
     <body id="gradient">
-        <label style="display: none;" id="totalTodo"></label>
+        <label style="display: none; margin-left: 20;" id="totalTodo"></label>
         <div class="filter" id="filterDisplay">
-            <label class="Incomplete" onclick="filterTodo('INCOMPLETED')">
+            <label id="Incomplete" onclick="filterTodo('INCOMPLETED')">
                 Incomplete
             </label>
             |
-            <label class="Complete" onclick="filterTodo('COMPLETED')">
+            <label id="Complete" onclick="filterTodo('COMPLETED')">
                 Complete
             </label>
             |
-            <label class="All" onclick="filterTodo('ALL')">
+            <label id="All" onclick="filterTodo('ALL')">
                 All
             </label>
         </div>
-        <ol id="todolist">
+        <ol id="todolist" >
+            <!-- "<li class='listStyle' id="todoItem.id" ><input type='checkbox' id='checkboxStyle' onclick='onTodoComplete(this, "todoItem.id")'/><label>todoItem.todo</label>
+                <div>
+                <img src='edit.png' id='editImg' alt='Edit button' width='20' height='20' data-bs-toggle='modal' data-bs-target='#updateTodoModal' onclick='onEditTodo("todoItem.id")'><img src='delete.png' id='dltImg' alt='delete button'width='20' height='20' data-bs-toggle='modal' data-bs-target='#DeleteTodoModal' onclick='onDeleted("todoItem.id")'></div></li>" -->
         </ol>
         <div class="center" id="emptyMessage">
         <p> No to-dos addeed yet</p>
@@ -40,7 +43,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
         </div>
         <div class="modal-body">
-                <input type="text" placeholder="type here" id="todoInput" required/>
+                <input class="form-control" type="text" placeholder="type here" id="todoInput" required/>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -59,7 +62,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
         </div>
         <div class="modal-body">
-                <input type="text" id="todoUpdateInput" required/>
+                <input type="text" id="todoUpdateInput" required/> 
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -78,7 +81,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
         </div>
         <div class="modal-body">
-            "Are you sure"
+            <label id="dltConfirm"></label>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

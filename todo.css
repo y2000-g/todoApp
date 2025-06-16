@@ -24,3 +24,25 @@
         right: 15px; 
         top: 70px;
 }
+.listStyle{
+    background: #C1F7F3;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 10;
+    margin: 20;
+}
+#checkboxStyle{
+    margin: 10;
+}
+ol{
+    
+   list-style-type: none;
+}
+#editImg{
+    margin: 5;
+}
+#dltImg{
+    margin: 6;
+}
+#countBold{
+    font-weight: bold;
+}
