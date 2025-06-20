@@ -25,9 +25,6 @@
             </label>
         </div>
         <ol id="todolist" >
-            <!-- "<li class='listStyle' id="todoItem.id" ><input type='checkbox' id='checkboxStyle' onclick='onTodoComplete(this, "todoItem.id")'/><label>todoItem.todo</label>
-                <div>
-                <img src='edit.png' id='editImg' alt='Edit button' width='20' height='20' data-bs-toggle='modal' data-bs-target='#updateTodoModal' onclick='onEditTodo("todoItem.id")'><img src='delete.png' id='dltImg' alt='delete button'width='20' height='20' data-bs-toggle='modal' data-bs-target='#DeleteTodoModal' onclick='onDeleted("todoItem.id")'></div></li>" -->
         </ol>
         <div class="center" id="emptyMessage">
         <p> No to-dos addeed yet</p>
@@ -62,7 +59,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
         </div>
         <div class="modal-body">
-                <input type="text" id="todoUpdateInput" required/> 
+                <input class="form-control" type="text" id="todoUpdateInput" required/> 
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

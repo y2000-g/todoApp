@@ -72,6 +72,7 @@ function updateFrontend()
         }
     
     todolist.innerHTML = ""
+    
     let filteredTodosCount = 0;
 
     todoListArray.map((todoItem) =>
@@ -84,12 +85,12 @@ function updateFrontend()
                 if(todoItem.completed)
                 {
                     filteredTodosCount = todoListArray.length;
-                    todolist.innerHTML += "<li class='listStyle' id="+todoItem.id+" ><input type='checkbox' id='checkboxStyle' onclick='onTodoComplete(this, "+todoItem.id+")' checked/><label id='StrikeThrough'>"+todoItem.todo+"</label><div style='float:right;'><img src='edit.png' id='editImg' data-bs-toggle='modal' data-bs-target='#updateTodoModal' alt='Edit button'width='20' height='20' onclick='onEditTodo("+todoItem.id+")'><img src='delete.png' id='dltImg' alt='delete button'width='20' height='20' onclick='onDeleted("+todoItem.id+")'></div></li>"
+                    todolist.innerHTML += "<li class='listStyle' id="+todoItem.id+" ><input type='checkbox' id='checkboxStyle' onclick='onTodoComplete(this, "+todoItem.id+")' checked/><label id='StrikeThrough'>"+todoItem.todo+"</label><div style='float:right;'><img src='edit.png' alt='Edit button'width='20' height='20'><img src='delete.png' id='dltImg' alt='delete button' width='20' height='20' data-bs-toggle='modal' data-bs-target='#DeleteTodoModal' onclick='onDeleted("+todoItem.id+")'></div></li>"
                 }
                 else 
                 {
                     filteredTodosCount = todoListArray.length;
-                    todolist.innerHTML += "<li class='listStyle' id="+todoItem.id+" ><input type='checkbox' id='checkboxStyle' onclick='onTodoComplete(this, "+todoItem.id+")'/><label>"+todoItem.todo+"</label><div style='float:right;'><img src='edit.png' alt='Edit button' id='editImg' width='20' height='20' data-bs-toggle='modal' data-bs-target='#updateTodoModal' onclick='onEditTodo("+todoItem.id+")'><img src='delete.png' id='dltImg' alt='delete button'width='20' height='20' data-bs-toggle='modal' data-bs-target='#DeleteTodoModal' onclick='onDeleted("+todoItem.id+")'></div></li>"
+                    todolist.innerHTML += "<li class='listStyle' id="+todoItem.id+" ><input type='checkbox' id='checkboxStyle' onclick='onTodoComplete(this, "+todoItem.id+")'/><label>"+todoItem.todo+"</label><div style='float:right;'><img src='edit.png' alt='Edit button' id='editImg' width='20' height='20' data-bs-toggle='modal' data-bs-target='#updateTodoModal' onclick='onEditTodo("+todoItem.id+")'><img src='delete.png' id='dltImg' alt='delete button' width='20' height='20' data-bs-toggle='modal' data-bs-target='#DeleteTodoModal' onclick='onDeleted("+todoItem.id+")'></div></li>"
                 }
         }   
         else if (filter == INCOMPLETED)
@@ -111,12 +112,11 @@ function updateFrontend()
                 if(todoItem.completed)
                 {
                     filteredTodosCount = todoListArray.filter(todo => todo.completed).length;  
-                    todolist.innerHTML += "<li class='listStyle' id="+todoItem.id+" ><input type='checkbox' id='checkboxStyle' onclick='onTodoComplete(this, "+todoItem.id+")' checked/><label id='StrikeThrough'>"+todoItem.todo+"</label><div style='float:right;'><img src='edit.png' data-bs-toggle='modal' data-bs-target='#updateTodoModal' alt='Edit button' id='editImg'x width='20' height='20' onclick='onEditTodo("+todoItem.id+")'><img src='delete.png' id='dltImg' alt='delete button'width='20' height='20' onclick='onDeleted("+todoItem.id+")'></div></li>"
+                    todolist.innerHTML += "<li class='listStyle' id="+todoItem.id+" ><input type='checkbox' id='checkboxStyle' onclick='onTodoComplete(this, "+todoItem.id+")' checked/><label id='StrikeThrough'>"+todoItem.todo+"</label><div style='float:right;'><img src='edit.png' alt='Edit button' width='20' height='20'><img src='delete.png' id='dltImg' alt='delete button'width='20' height='20' data-bs-toggle='modal' data-bs-target='#DeleteTodoModal' onclick='onDeleted("+todoItem.id+")'></div></li>"
                 }
         }
-            // "<label id='count bold'>"+ filteredTodosCount +"</label>"
+      
             document.getElementById("totalTodo").innerHTML = "COUNT TO-DO : " + "<label id='countBold'>"+ filteredTodosCount +"</label>"
-            // document.getElementById("totalTodo").style.fontWeight = "bold"; 
     })
 }  
 
@@ -169,12 +169,6 @@ function onTodoComplete(checkbox, todoID)
     {
         if(todoObj.id == todoID)
         {
-            // console.log("FOUND", todoObj.todo)
-            // if(checkbox.checked)
-            //     todoObj.checked = true
-            // else
-            //     todoObj.checked = false
-
             todoObj.completed = checkbox.checked
         }
         return todoObj
